@@ -433,7 +433,7 @@ static eph_t *seleph(gtime_t time, int sat, int iode, const nav_t *nav)
             if (sel==1&&!(nav->eph[i].code&(1<<9))) continue; /* I/NAV */
             if (sel==2&&!(nav->eph[i].code&(1<<8))) continue; /* F/NAV */
         }
-        if ((t=fabs(timediff(nav->eph[i].toe,time)))>tmax) continue;
+        if ((t=timediff(time,nav->eph[i].toe))>tmax || t < 0) continue;
         if (iode>=0) return nav->eph+i;
         if (t<=tmin) {j=i; tmin=t;} /* toe closest to time */
     }
